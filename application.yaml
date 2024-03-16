@@ -1,0 +1,32 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: spring-test-performance-db-general
+  datasource:
+    url: jdbc:mysql://db:3306/example
+    username: mydb
+    password: P@ssw0rd
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # hikari:
+    #   minimumIdle: 2
+    #   maximumPoolSize: 10
+    #   connectionTimeout: 300000
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: create-drop
+      naming-strategy: "org.hibernate.cfg.ImprovedNamingStrategy"
+    properties:
+      hibernate:
+        dialect: "org.hibernate.dialect.MySQLDialect"
+        hibernate:
+          id:
+            new_generator_mappings: false
+  jmx:
+    enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        exclude: "*"
