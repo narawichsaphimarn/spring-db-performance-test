@@ -4,7 +4,7 @@ spring:
   application:
     name: spring-test-performance-db-general
   datasource:
-    url: jdbc:mysql://172.20.10.4:3306/example
+    url: jdbc:mysql://172.20.10.7:3306/example
     username: mydb
     password: P@ssw0rd
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -19,7 +19,7 @@ spring:
       naming-strategy: "org.hibernate.cfg.ImprovedNamingStrategy"
     properties:
       hibernate:
-        dialect: "org.hibernate.dialect.H2Dialect"
+        dialect: "org.hibernate.dialect.MySQLDialect"
         hibernate:
           id:
             new_generator_mappings: false

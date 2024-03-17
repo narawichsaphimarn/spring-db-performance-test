@@ -24,7 +24,9 @@ services:
     networks:
       - my-app
   spring-test-performance-db-general:
-    image: spring-test-performance-db-general:1.0.6
+    build:
+      context: ./spring-test-performance-db-general
+      dockerfile: Dockerfile
     restart: always
     environment:
       - TIME_ZONE=-Dlogback.timezone=Asia/Bangkok -Duser.timezone=Asia/Bangkok -Djava.security.egd=file:/dev/./urandom
