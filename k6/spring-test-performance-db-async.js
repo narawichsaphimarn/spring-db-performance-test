@@ -2,12 +2,12 @@ import { check } from "k6";
 import http from "k6/http";
 
 export const options = {
-  vus: 1,
+  vus: 10,
   duration: "1m",
 };
 export default function () {
   const url =
-    "http://spring-test-performance-db-general:8080/api/v1/personal-information";
+    "http://spring-test-performance-db-async:8080/api/v1/personal-information";
   const payload = JSON.stringify({
     firstName: "chon",
     lastName: "bu",

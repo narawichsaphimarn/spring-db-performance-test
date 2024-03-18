@@ -13,7 +13,7 @@ spring:
     #   maximumPoolSize: 10
     #   connectionTimeout: 300000
   jpa:
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: create-drop
       naming-strategy: "org.hibernate.cfg.ImprovedNamingStrategy"

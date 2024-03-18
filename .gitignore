@@ -27,3 +27,6 @@ spring-test-performance-db-general/.idea
 spring-test-performance-db-general/target
 .vscode
 spring-test-performance-db-general/.mvn
+spring-test-performance-db-async/.idea
+spring-test-performance-db-async/target
+spring-test-performance-db-async/.mvn
