@@ -24,9 +24,13 @@ services:
     networks:
       - my-app
   spring-test-performance-db-general:
-    image: spring-test-performance-db-general:1.0.6
+    build:
+      context: ./spring-test-performance-db-general
+      dockerfile: Dockerfile
     restart: always
     environment:
+      - APPLICATION_NAME=spring-test-performance-db-general
+      - DB_HOST=db
       - TIME_ZONE=-Dlogback.timezone=Asia/Bangkok -Duser.timezone=Asia/Bangkok -Djava.security.egd=file:/dev/./urandom
       - JAVA_OPTS=-Xms256m -Xmx1024m
       - JAVA_CONFIG=--spring.config.location=/app/application.yaml -Dcom.zaxxer.hikari.housekeeping.periodMs=30000
@@ -36,7 +40,6 @@ services:
     ports:
       - 9080:8080
       - 6001:6001
-      - 6000:6000
     networks:
       - my-app
     depends_on:
@@ -46,18 +49,45 @@ services:
     mem_limit: 1024m
     mem_reservation: 128M
     cpus: 0.5
+  spring-test-performance-db-async:
+    build:
+      context: ./spring-test-performance-db-async
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - APPLICATION_NAME=spring-test-performance-db-async
+      - DB_HOST=db
+      - TIME_ZONE=-Dlogback.timezone=Asia/Bangkok -Duser.timezone=Asia/Bangkok -Djava.security.egd=file:/dev/./urandom
+      - JAVA_OPTS=-Xms256m -Xmx1024m
+      - JAVA_CONFIG=--spring.config.location=/app/application.yaml -Dcom.zaxxer.hikari.housekeeping.periodMs=30000
+      - JAVA_JMX_REMOTE=-Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.port=6002 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.rmi.port=6002 -Dcom.sun.management.jmxremote.local.only=false -Djava.rmi.server.hostname=localhost
+    volumes:
+      - ./application.yaml:/app/application.yaml
+    ports:
+      - 9081:8080
+      - 6002:6002
+    networks:
+      - my-app
+    depends_on:
+      - db
+    container_name: spring-test-performance-db-async
+    hostname: spring-test-performance-db-async
+    mem_limit: 1024m
+    mem_reservation: 128M
+    cpus: 0.5
   k6:
     image: grafana/k6:0.45.0
     volumes:
       - ./k6:/scripts
     container_name: k6
     hostname: k6
-    command: ["run", "/scripts/api-test.js"]
+    # command: ["run", "/scripts/api-test.js"]
     networks:
       - my-app
     depends_on:
       - db
       - spring-test-performance-db-general
+      - spring-test-performance-db-async
 
 networks:
   my-app:

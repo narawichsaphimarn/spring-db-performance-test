@@ -8,7 +8,7 @@ COPY src ./src
 RUN mvn -e -B -DskipTests package
 
 FROM openjdk:17
-COPY --from=builder /app/target/spring-test-performance-db-general-0.0.1-SNAPSHOT.jar /app/app.jar
+COPY --from=builder /app/target/spring-test-performance-db-async-0.0.1-SNAPSHOT.jar /app/app.jar
 WORKDIR /app
-EXPOSE 6001 8080
+EXPOSE 6002 8080
 ENTRYPOINT exec java $JAVA_JMX_REMOTE $JAVA_OPTS $TIME_ZONE -jar /app/app.jar $JAVA_CONFIG

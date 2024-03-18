@@ -1,4 +1,4 @@
-package com.example.springtestperformancedbgeneral.entity;
+package com.example.springtestperformancedbasync.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

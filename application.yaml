@@ -2,9 +2,9 @@ server:
   port: 8080
 spring:
   application:
-    name: spring-test-performance-db-general
+    name: ${APPLICATION_NAME}
   datasource:
-    url: jdbc:mysql://db:3306/example
+    url: jdbc:mysql://${DB_HOST}:3306/example
     username: mydb
     password: P@ssw0rd
     driver-class-name: com.mysql.cj.jdbc.Driver

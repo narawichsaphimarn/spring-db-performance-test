@@ -5,6 +5,8 @@ import com.example.springtestperformancedbgeneral.entity.dto.PersonalInformation
 import com.example.springtestperformancedbgeneral.model.PersonalInformationModel;
 import com.example.springtestperformancedbgeneral.repository.PersonalInformationRepository;
 import com.example.springtestperformancedbgeneral.service.personalInformation.PersonalInformService;
+
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ public class PersonalInformationServiceImpl implements PersonalInformService {
     private final PersonalInformationDto personalInformationDto;
 
     @Override
+    @Transactional
     public PersonalInformationEntity create(PersonalInformationModel personalInformationModel) {
         PersonalInformationEntity entity = personalInformationDto.mapToEntity(personalInformationModel);
         return personalInformationRepository.save(entity);
