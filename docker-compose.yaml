@@ -81,13 +81,13 @@ services:
       - ./k6:/scripts
     container_name: k6
     hostname: k6
-    # command: ["run", "/scripts/api-test.js"]
+    # command: ["run", "--out json=output.json", "--summary-export=summary-export.json", "/scripts/api-test.js"]
     networks:
       - my-app
-    depends_on:
-      - db
-      - spring-test-performance-db-general
-      - spring-test-performance-db-async
+    # depends_on:
+    #   - db
+    #   - spring-test-performance-db-general
+    #   - spring-test-performance-db-async
 
 networks:
   my-app:
