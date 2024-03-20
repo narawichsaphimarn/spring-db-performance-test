@@ -1,5 +1,5 @@
 server:
-  port: 8888
+  port: 8080
 spring:
   application:
     name: spring-test-performance-db-general
@@ -25,8 +25,3 @@ spring:
             new_generator_mappings: false
   jmx:
     enabled: true
-management:
-  endpoints:
-    web:
-      exposure:
-        exclude: "*"
