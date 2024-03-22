@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: my-app
+
+resources:
+  - ./resources/deployment.yaml
+  - ./resources/service.yaml
+
+configMapGenerator:
+  - name: spring-test-performance-db-configmap-file
+    files:
+      - ./configs/application.yaml
+  - name: spring-test-performance-db-configmap-env
+    envs:
+      - ./configs/config.env
+
+secretGenerator:
+  - name: spring-test-performance-db-secret-env
+    envs:
+      - ./secrets/secret.env

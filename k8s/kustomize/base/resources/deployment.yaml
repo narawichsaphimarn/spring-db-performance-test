@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-test-performance-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {}
+  template:
+    spec:
+      automountServiceAccountToken: false
+      volumes:
+        - name: spring-test-performance-db-configmap-file
+          configMap:
+            name: spring-test-performance-db-configmap-file
+      containers:
+        - name: spring-test-performance-db
+          image: spring-test-performance-db:dev
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: spring-test-performance-db-configmap-env
+            - secretRef:
+                name: spring-test-performance-db-secret-env
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: http
+          volumeMounts:
+            - mountPath: /app/application.yaml
+              name: spring-test-performance-db-configmap-file
+              subPath: application.yaml

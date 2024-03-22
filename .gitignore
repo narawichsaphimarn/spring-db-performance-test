@@ -30,3 +30,5 @@ spring-test-performance-db-general/.mvn
 spring-test-performance-db-async/.idea
 spring-test-performance-db-async/target
 spring-test-performance-db-async/.mvn
+
+.idea
