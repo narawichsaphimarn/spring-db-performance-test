@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-test-performance-db
+  labels:
+    app.kubernetes.io/name: spring-test-performance-db-async
+    app.kubernetes.io/instance: spring-test-performance-db-async
+    app: spring-test-performance-db-async
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: spring-test-performance-db-async
+      app.kubernetes.io/instance: spring-test-performance-db-async
+      app: spring-test-performance-db-async
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: spring-test-performance-db-async
+        app.kubernetes.io/instance: spring-test-performance-db-async
+        app: spring-test-performance-db-async
+        tier: backend
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: spring-test-performance-db
+          ports:
+            - name: http-jmx
+              containerPort: 6001
+              protocol: TCP
+          resources:
+            limits:
+              cpu: "1"
+              memory: 1024Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi

@@ -1,0 +1,31 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+nameSuffix: "-async"
+resources:
+  - ../../base/
+
+images:
+  - name: spring-test-performance-db
+    newName: spring-test-performance-db-async
+    newTag: latest
+
+configMapGenerator:
+  - behavior: merge
+    files:
+      - ./configs/application.yaml
+    name: spring-test-performance-db-configmap-file
+  - behavior: merge
+    envs:
+      - ./configs/config.env
+    name: spring-test-performance-db-configmap-env
+
+secretGenerator:
+  - behavior: merge
+    envs:
+      - ./secrets/secret.env
+    name: spring-test-performance-db-secret-env
+
+patchesStrategicMerge:
+  - ./patches/patch_deployment.yaml
+  - ./patches/patch_service.yaml
